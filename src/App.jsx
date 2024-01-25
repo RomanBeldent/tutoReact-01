@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useIncrement } from "./hooks/useIncrement";
 import { useDocumentTitle } from "./hooks/useDocumentTitle";
 import { Input } from "./components/forms/Input";
+import { useFetch } from "./hooks/useFetch";
 
 function App() {
 
@@ -26,8 +27,11 @@ function App() {
 
   return <div>
     {loading && <div>Chargement...</div>}
+    {errors && <div>{errors.toString()}</div>}
     {data && <div>
-      {JSON.stringifiy(data)}
+      <ul>
+        {data.map(post => (<li key={post.id}>{post.title}</li>))}
+      </ul>
     </div>}
   </div>
 }
