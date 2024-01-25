@@ -1,15 +1,34 @@
 import { useState } from "react";
-import { useToggle } from "./hooks/useToggle";
-
+import { useIncrement } from "./hooks/useIncrement";
+import { useDocumentTitle } from "./hooks/useDocumentTitle";
+import { Input } from "./components/forms/Input";
 
 function App() {
 
-  const [checked, toggleCheck] = useToggle()
+  // const { count, decrement, increment } = useIncrement({
+  //   base: 0,
+  //   max: 10,
+  //   min: 0
+  // })
+
+  // const [name, setName] = useState('')
+
+  // useDocumentTitle(name ? `Editer ${name}` : null)
+
+  // return <div>
+  //   <Input value={name} onChange={setName} label="Nom" />
+  //   Compteur {count}
+  //   <button onClick={increment}>Incrémenter</button>
+  //   <button onClick={decrement}>Décrémenter</button>
+  // </div>
+
+  const { loading, data, errors } = useFetch('https://jsonplaceholder.typicode.com/posts?_limit=10&_delay=2000')
 
   return <div>
-    <input type="checkbox" checked={checked} onChange={toggleCheck} />
-    {checked && 'Je suis coché'}
-
+    {loading && <div>Chargement...</div>}
+    {data && <div>
+      {JSON.stringifiy(data)}
+    </div>}
   </div>
 }
 
